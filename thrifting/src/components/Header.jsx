@@ -1,4 +1,5 @@
 import { Search, Heart, Store, User, ShoppingBag, ArrowLeft } from 'lucide-react';
+import LogoIcon from './LogoIcon.jsx';
 
 export default function Header({
   activeTab,
@@ -11,9 +12,9 @@ export default function Header({
   onSearchSubmit
 }) {
   return (
-    <header className="site-header">
+    <header className="site-header container-fluid">
       <div className="header-inner">
-        {/* Brand Logo */}
+        {/* Brand Logo: Kaos Putih di Hanger dengan huruf T. di tengah */}
         <div className="header-brand-wrap">
           <button
             type="button"
@@ -21,7 +22,7 @@ export default function Header({
             onClick={() => onSelectTab('beranda')}
             aria-label="Thrifting Beranda"
           >
-            <span className="brand-mark">T.</span>
+            <LogoIcon size={38} className="brand-logo-hang" />
             <span className="brand-name">Thrifting</span>
           </button>
         </div>
@@ -86,7 +87,6 @@ export default function Header({
                 className="header-icon-action"
                 onClick={() => {
                   onSelectTab('beranda');
-                  // scroll to catalog
                   const el = document.getElementById('katalog');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
@@ -102,9 +102,10 @@ export default function Header({
                 type="button"
                 className="btn-switch-seller"
                 onClick={onToggleSellerMode}
+                title="Masuk ke Dashboard Seller"
               >
-                <Store size={14} />
-                <span>Dashboard Seller</span>
+                <Store size={15} />
+                <span className="seller-btn-label">Dashboard Seller</span>
               </button>
             </>
           ) : (

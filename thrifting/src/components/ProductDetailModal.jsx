@@ -9,7 +9,8 @@ import {
   ShoppingBag,
   Info,
   CheckCircle2,
-  ArrowRight
+  ArrowRight,
+  Clock
 } from 'lucide-react';
 import SafeImage from './SafeImage.jsx';
 
@@ -37,6 +38,15 @@ export default function ProductDetailModal({
   if (!product) return null;
 
   const formattedPrice = `Rp ${product.price.toLocaleString('id-ID')}`;
+
+  // Pisahkan alamat fisik dan jam operasional agar tampil rapi sebagai list
+  let physicalLocation = product.storeAddress || '';
+  let openingHours = '';
+  if (product.storeAddress && product.storeAddress.includes('(')) {
+    const parts = product.storeAddress.split('(');
+    physicalLocation = parts[0].trim();
+    openingHours = parts[1].replace(')', '').trim();
+  }
 
   return (
     <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
@@ -78,7 +88,7 @@ export default function ProductDetailModal({
             <h2 className="detail-title">{product.name}</h2>
             <div className="detail-price-text">{formattedPrice}</div>
 
-            {/* Spesifikasi Detail */}
+            {/* Spesifikasi Detail (List Card) */}
             <div className="detail-spec-grid">
               <div className="spec-cell">
                 <span className="spec-label">Ukuran / Size</span>
@@ -96,23 +106,39 @@ export default function ProductDetailModal({
               </div>
             </div>
 
-            {/* Informasi Seller & Toko Fisik */}
+            {/* Informasi Seller & Toko Fisik (List Rapi & Waktu Terpisah) */}
             <div className="detail-seller-box">
               <div className="seller-header">
                 <div className="seller-avatar-badge">
-                  <Store size={16} />
+                  <Store size={18} />
                 </div>
-                <div>
+                <div className="seller-meta-info">
                   <h4 className="seller-name-heading">{product.shop}</h4>
                   <span className="seller-location-text">
                     <MapPin size={12} /> {product.location}
                   </span>
                 </div>
               </div>
+
               {product.storeAddress && (
-                <div className="seller-physical-address">
-                  <strong>Lokasi Toko Fisik:</strong>
-                  <p>{product.storeAddress}</p>
+                <div className="seller-store-details-list">
+                  <div className="store-detail-item">
+                    <MapPin size={14} className="store-info-icon" />
+                    <div>
+                      <span className="store-info-label">Alamat Kios Fisik</span>
+                      <p className="store-info-text">{physicalLocation}</p>
+                    </div>
+                  </div>
+
+                  {openingHours && (
+                    <div className="store-detail-item">
+                      <Clock size={14} className="store-info-icon" />
+                      <div>
+                        <span className="store-info-label">Jadwal & Waktu Buka</span>
+                        <p className="store-info-text time-highlight">{openingHours}</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

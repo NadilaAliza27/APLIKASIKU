@@ -1,4 +1,5 @@
 import { ArrowUp, Sparkles } from 'lucide-react';
+import LogoIcon from './LogoIcon.jsx';
 
 export default function Footer({ onSelectCategory, onGoToLive, onOpenSellerDashboard }) {
   function scrollToTop() {
@@ -6,13 +7,13 @@ export default function Footer({ onSelectCategory, onGoToLive, onOpenSellerDashb
   }
 
   return (
-    <footer className="clean-editorial-footer">
+    <footer className="clean-editorial-footer container-fluid">
       <div className="footer-container">
         <div className="footer-main-grid">
           {/* Brand Info */}
           <div className="footer-col-brand">
             <div className="footer-logo">
-              <span className="brand-mark">T.</span>
+              <LogoIcon size={38} />
               <span className="brand-name">Thrifting</span>
             </div>
             <p className="footer-mission-text">

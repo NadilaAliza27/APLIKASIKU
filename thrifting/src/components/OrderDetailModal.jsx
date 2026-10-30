@@ -94,9 +94,13 @@ export default function OrderDetailModal({
             </div>
           </div>
 
-          {/* Timeline Riwayat Pesanan */}
+          {/* Timeline Riwayat Pesanan (Format List Rapi, Waktu Terpisah & Tidak Ditumpuk) */}
           <div className="order-section-item">
-            <span className="section-head-text">Timeline Status Pesanan</span>
+            <div className="section-head-row">
+              <Clock size={14} className="icon-sage" />
+              <span className="section-head-text">Timeline & Riwayat Status Pesanan</span>
+            </div>
+
             <div className="timeline-list">
               {order.timeline.map((step, idx) => (
                 <div key={idx} className="timeline-item">
@@ -105,7 +109,10 @@ export default function OrderDetailModal({
                     {idx < order.timeline.length - 1 && <span className="timeline-line"></span>}
                   </div>
                   <div className="timeline-content">
-                    <span className="timeline-time">{step.time}</span>
+                    <div className="timeline-time-badge">
+                      <Clock size={11} />
+                      <span>{step.time}</span>
+                    </div>
                     <p className="timeline-text">{step.text}</p>
                   </div>
                 </div>
